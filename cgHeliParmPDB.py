@@ -5,7 +5,14 @@ import argparse
 import MDAnalysis
 import sys
 import time
+import os
 start_time = time.time()
+
+# Locate the directory in which the script is stored.
+# The __file__ variable contains the path to the python file,
+# we save the directory part of that path. This is useful latter on to locate
+# the data library.
+SCRIPT_DIRECTORY = os.path.dirname(__file__)
 
 parser = argparse.ArgumentParser(description='Calculate helical parameters for dsDNA')
 parser.add_argument('-i', dest="pdb", metavar='<.pdb file>', 
@@ -202,7 +209,7 @@ def write2ser(data, file):
 
 # input files
 #ifile = raw_input('PDB file: ')
-library_path = "./data/"
+library_path = os.path.join(SCRIPT_DIRECTORY, "data")
 mol = MDAnalysis.Universe(args.pdb)
 total_res = len(mol.residues.resids)
 basepairs = total_res/2
