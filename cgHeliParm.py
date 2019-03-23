@@ -17,8 +17,15 @@ import argparse
 import MDAnalysis
 import sys
 import time
+import os
 start_time = time.time()
 import mdreader
+
+# Locate the directory in which the script is stored.
+# The __file__ variable contains the path to the python file,
+# we save the directory part of that path. This is useful latter on to locate
+# the data library.
+SCRIPT_DIRECTORY = os.path.dirname(__file__)
 
 def lsfit(residue_name,residue_number):
     base = mol.residues.residues[residue_number]
@@ -181,7 +188,7 @@ def stepFrame(o1,R1,o2,R2):
 
 
 # input files
-library_path = "./data/"
+library_path = os.path.join(SCRIPT_DIRECTORY, "data")
 mol = mdreader.MDreader(description='Calculate helical parameters for dsDNA')
 mol.setargs(o="")
 

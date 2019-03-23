@@ -8,6 +8,13 @@ import sys
 import time
 import json 
 import pandas as pd 
+import os
+
+# Locate the directory in which the script is stored.
+# The __file__ variable contains the path to the python file,
+# we save the directory part of that path. This is useful latter on to locate
+# the data library.
+SCRIPT_DIRECTORY = os.path.dirname(__file__)
 
 start_time = time.time()
 parser = argparse.ArgumentParser(description='Calculate helical parameters for dsDNA')
@@ -200,7 +207,7 @@ def write2json(data,file):
     
 # input files
 #ifile = raw_input('PDB file: ')
-library_path = "./data/"
+library_path = os.path.join(SCRIPT_DIRECTORY, "data")
 mol = MDAnalysis.Universe(args.pdb)
 total_res = len(mol.residues.resids)
 basepairs = total_res/2
